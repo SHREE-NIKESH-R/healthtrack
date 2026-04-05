@@ -57,12 +57,11 @@ app.get("/api/seed", async (req, res) => {
       await UserProfile.deleteMany({ userId: existing._id });
       await User.deleteOne({ _id: existing._id });
     }
-
-    const hashedPassword = await bcrypt.hash("Demo1234", 12);
-    const user = await User.create({
+    const user = new User({
       email: "demo@healthtrack.app",
-      password: hashedPassword,
+      password: "Demo1234",
     });
+    await user.save();
 
     const profile = await UserProfile.create({
       userId: user._id,
