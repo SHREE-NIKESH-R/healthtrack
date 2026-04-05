@@ -1,0 +1,10 @@
+const router = require('express').Router();
+const auth = require('../middleware/auth');
+const { getGoals, createGoal, updateGoal, deleteGoal, checkToday } = require('../controllers/goalsController');
+router.use(auth);
+router.get('/', getGoals);
+router.post('/', createGoal);
+router.post('/check-today', checkToday);
+router.put('/:id', updateGoal);
+router.delete('/:id', deleteGoal);
+module.exports = router;
