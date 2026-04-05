@@ -14,15 +14,15 @@ api.interceptors.request.use(config => {
 
 // 401 → logout
 api.interceptors.response.use(
-    res => res,
-    err => {
-        if (err.response ? .status === 401) {
-            localStorage.removeItem('ht_token');
-            localStorage.removeItem('ht_user');
-            window.location.href = '/auth';
-        }
-        return Promise.reject(err);
+  (res) => res,
+  (err) => {
+    if (err && err.response && err.response.status === 401) {
+      localStorage.removeItem("ht_token");
+      localStorage.removeItem("ht_user");
+      window.location.href = "/auth";
     }
+    return Promise.reject(err);
+  }, // ❗ no semicolon here
 );
 
 // Auth
