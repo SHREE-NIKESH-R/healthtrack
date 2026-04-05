@@ -8,13 +8,8 @@ const app = express();
 // Middleware
 app.use(
   cors({
-    origin: [
-      "http://localhost:5173",
-      "http://localhost:3000",
-      "https://healthtrack.vercel.app", // replace with your actual vercel URL
-      /\.vercel\.app$/, // allows all vercel preview URLs
-    ],
-    credentials: true,
+    origin: "*",
+    credentials: false,
   }),
 );
 app.use(express.json());
@@ -31,7 +26,7 @@ app.use("/api/wellness", require("./routes/wellness.routes"));
 
 // Health check
 app.get("/api/health", (req, res) => {
-  res.json({ status: "OK", timestamp: new Date().toISOString() });
+    res.json({ status: "OK", timestamp: new Date().toISOString() });
 });
 
 app.get("/api/seed", async (req, res) => {
@@ -244,10 +239,10 @@ app.get("/api/seed", async (req, res) => {
 
 // Error handler
 app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res
-    .status(500)
-    .json({ error: "Internal server error", message: err.message });
+    console.error(err.stack);
+    res
+      .status(500)
+      .json({ error: "Internal server error", message: err.message });
 });
 
 // Connect to MongoDB
