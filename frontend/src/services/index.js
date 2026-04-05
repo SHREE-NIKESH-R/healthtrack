@@ -1,8 +1,13 @@
 import axios from 'axios';
 
+const BASE_URL =
+  typeof import.meta !== "undefined" && import.meta.env
+    ? import.meta.env.VITE_API_URL || "/api"
+    : "/api";
+
 const api = axios.create({
-    baseURL: import.meta.env.VITE_API_URL || '/api',
-    timeout: 30000
+  baseURL: BASE_URL,
+  timeout: 30000,
 });
 
 // Auth token interceptor
